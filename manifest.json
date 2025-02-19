@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Transcript Scraper",
+  "name": "tl;dv Transcript Grabber",
   "version": "1.0",
   "description": "Extract and copy transcript from meeting recordings.",
   "action": {
