@@ -22,10 +22,18 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 
 ## File Structure
 ```
-transcript-scraper/
+tl-dv-Transcript-Grabber/
+├── assets/
+├──── css/
+├────── popup.css       // Popup Styling
+├──── icons/
+├────── icon16.png
+├────── icon48.png
+├────── icon128.png
+├──── js/
+├────── popup.js        // Main logic for extracting transcript
 ├── manifest.json       // Chrome extension configuration
 ├── popup.html          // Popup UI
-└── popup.js            // Main logic for extracting transcript
 ```
 
 ## Technologies Used
