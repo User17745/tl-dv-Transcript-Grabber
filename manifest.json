@@ -1,22 +1,27 @@
 {
   "manifest_version": 3,
   "name": "tl;dv Transcript Grabber",
-  "version": "1.0",
-  "description": "Extract and copy transcript from meeting recordings.",
+  "version": "0.8",
+  "description": "Extract and copy transcripts from tl;dv meeting recordings.",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
     }
   },
-  "permissions": [
-    "scripting",
-    "activeTab",
-    "clipboardWrite"
-  ],
+  "background": {
+    "service_worker": "assets/js/background.js"
+  },
   "host_permissions": [
     "*://*.tldv.io/*"
-  ]
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.tldv.io/*"],
+      "js": ["assets/js/content.js"]
+    }
+  ],
+  "permissions": ["scripting", "activeTab", "clipboardWrite", "storage"]
 }

@@ -1,4 +1,4 @@
-# Transcript Scraper Chrome Extension
+# tl;dv Transcript Grabber Chrome Extension
 
 ## Overview
 A simple Chrome extension designed to extract and copy transcripts from online meeting recordings, specifically on the **tl;dv** platform. It allows users to easily retrieve text from transcripts that are otherwise difficult to copy manually.
