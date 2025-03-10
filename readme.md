@@ -50,7 +50,7 @@ tl-dv-Transcript-Grabber/
 Feel free to fork this project, make improvements, and create pull requests. Any contributions are welcome!
 
 ## Credit
-<a href="https://www.flaticon.com/free-icons/transcription" title="transcription icons">Transcription icons created by Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/transcription" title="Flaticon transcription icons" target="_blank">Transcription icons created by Freepik - Flaticon</a>
 
 ## License
 This project is licensed under GNU GENERAL PUBLIC LICENSE Version 3.
