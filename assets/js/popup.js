@@ -81,10 +81,11 @@ async function handleTranscriptAction(action) {
 function processTranscript(data, action) {
   let content = "";
 
+  // Content Collection
   if (action === "copy" || action === "txt") {
     content = data.map(item => {
       const timePart = item.timestamp ? `${item.timestamp} ` : "";
-      return `${timePart}${item.speaker}: ${item.text}`;
+      return `${timePart}${item.speaker} :: ${item.text}`;
     }).join("\n");
   } else if (action === "md") {
     content = data.map(item => {
