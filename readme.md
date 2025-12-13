@@ -4,9 +4,9 @@
 A simple Chrome extension designed to extract and copy transcripts from online meeting recordings, specifically on the **tl;dv** platform. It allows users to easily retrieve text from transcripts that are otherwise difficult to copy manually.
 
 ## Features
-- Extracts speaker names and text and timestamp from the transcript container on tl;dv meeting pages.
-- Copies the formatted transcript directly to the clipboard for easy pasting.
-- Downloads the transcript as a .txt or .md file.
+- Extracts speaker names, timestamps, and text from tl;dv meeting pages.
+- Supports multiple formats: **TXT**, **Markdown (MD)**, and **CSV**.
+- Provides options to either **Copy** to clipboard or **Download** as a file for each format.
 
 ## Installation
 1. Clone or download this repository to your local machine.
@@ -18,8 +18,8 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 ## Usage
 1. Navigate to a tl;dv meeting recording page.
 2. Click on the **Transcript Scraper** extension icon.
-3. Click on the **Copy Transcript** button in the popup.
-4. The transcript will be copied to your clipboard, and you will see a confirmation message.
+3. Choose your desired format (TXT, MD, CSV) and click either **Copy** or **Download**.
+4. The transcript will be processed accordingly, and you will see a confirmation message.
 
 ## File Structure
 ```
@@ -56,5 +56,11 @@ Feel free to fork this project, make improvements, and create pull requests. Any
 ## License
 This project is licensed under GNU GENERAL PUBLIC LICENSE Version 3.
 
-## Contact
-For any issues or feature requests, please open an issue on the GitHub repository.
+## Contact & Support
+- **Report Bugs**: [GitHub Issues](https://github.com/User17745/tl-dv-Transcript-Grabber/issues)
+- **Feature Requests**: [GitHub Discussions](https://github.com/User17745/tl-dv-Transcript-Grabber/discussions)
+- **Reach out**: [X/Twitter](https://x.com/InuMeo) | [LinkedIn](https://www.linkedin.com/in/abhishek-aggarwal-8bb82b100/)
+- **Rate the Extension**: [Chrome Web Store](https://chromewebstore.google.com/detail/tldv-transcript-grabber/imdeigjlcophdhdfhebkgaliacabkhmc)
+
+## Privacy Policy
+[Read Privacy Policy](https://user17745.github.io/tl-dv-Transcript-Grabber/privacy-policy)
