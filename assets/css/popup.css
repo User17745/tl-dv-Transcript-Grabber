@@ -13,15 +13,30 @@ body {
   width: 300px;
 }
 
-.button-group {
+.button-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
 }
 
-.button-group button {
+.format-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
+}
+
+.format-label {
+  width: 35px;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 8px 5px;
+  font-size: 0.9em;
 }
 
 h3 {

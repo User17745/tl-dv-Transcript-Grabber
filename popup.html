@@ -8,11 +8,22 @@
 
 <body>
   <h3>tl;dv Transcript Grabber</h3>
-  <div class="button-group">
-    <button id="scrape-transcript">Copy Transcript</button>
-    <button id="download-txt">Download .txt</button>
-    <button id="download-md">Download .md</button>
-    <button id="download-csv">Download .csv</button>
+  <div class="button-container">
+    <div class="format-row">
+      <span class="format-label">TXT</span>
+      <button id="copy-txt" class="action-btn">Copy</button>
+      <button id="download-txt" class="action-btn">Download</button>
+    </div>
+    <div class="format-row">
+      <span class="format-label">MD</span>
+      <button id="copy-md" class="action-btn">Copy</button>
+      <button id="download-md" class="action-btn">Download</button>
+    </div>
+    <div class="format-row">
+      <span class="format-label">CSV</span>
+      <button id="copy-csv" class="action-btn">Copy</button>
+      <button id="download-csv" class="action-btn">Download</button>
+    </div>
   </div>
   <p id="status"></p>
   <script src="assets/js/popup.js"></script>
