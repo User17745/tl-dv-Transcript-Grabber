@@ -12,11 +12,27 @@ function scrapeTranscriptFromPage() {
     let textElements = paragraph.querySelectorAll("span[data-speaker=false]");
 
     if (speakerElement && textElements.length > 0) {
-      let speaker = speakerElement.textContent.trim();
+      // Extract timestamp from the <a> tag
+      let timestampElement = speakerElement.querySelector("a");
+      let timestamp = timestampElement ? timestampElement.textContent.trim() : "";
+
+      // Extract speaker name from the generic text content, removing the timestamp
+      // We avoid selecting by specific class (like text-base-800) to remain slightly more robust to styling changes
+      let fullSpeakerText = speakerElement.textContent.trim();
+      let speaker = fullSpeakerText;
+
+      if (timestamp) {
+        speaker = fullSpeakerText.replace(timestamp, "").trim();
+      }
+
+      // Clean up any leading/trailing colons or whitespace often found in these elements
+      speaker = speaker.replace(/^[:\s]+|[:\s]+$/g, "");
+
       let text = Array.from(textElements)
         .map((span) => span.textContent.trim())
         .join(" ");
-      transcriptData.push({ speaker, text });
+
+      transcriptData.push({ timestamp, speaker, text });
     }
   });
 
@@ -64,11 +80,17 @@ async function handleTranscriptAction(action) {
 
 function processTranscript(data, action) {
   let content = "";
-  
+
   if (action === "copy" || action === "txt") {
-    content = data.map(item => `${item.speaker}: ${item.text}`).join("\n");
+    content = data.map(item => {
+      const timePart = item.timestamp ? `${item.timestamp} ` : "";
+      return `${timePart}${item.speaker}: ${item.text}`;
+    }).join("\n");
   } else if (action === "md") {
-    content = data.map(item => `**${item.speaker}**: ${item.text}`).join("\n\n");
+    content = data.map(item => {
+      const timePart = item.timestamp ? `**${item.timestamp}** ` : "";
+      return `${timePart}*${item.speaker}* :: ${item.text}`;
+    }).join("\n\n");
   }
 
   if (action === "copy") {
