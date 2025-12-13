@@ -6,6 +6,7 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 ## Features
 - Extracts speaker names and text and timestamp from the transcript container on tl;dv meeting pages.
 - Copies the formatted transcript directly to the clipboard for easy pasting.
+- Downloads the transcript as a .txt or .md file.
 
 ## Installation
 1. Clone or download this repository to your local machine.

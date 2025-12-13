@@ -1,6 +1,31 @@
-document.getElementById("scrape-transcript").addEventListener("click", async () => {
+// Function to scrape transcript from the page
+function scrapeTranscriptFromPage() {
+  const transcriptContainer = document.querySelector("#transcript-container");
+  if (!transcriptContainer) {
+    return null;
+  }
+
+  let transcriptData = [];
+
+  transcriptContainer.querySelectorAll("p").forEach((paragraph) => {
+    let speakerElement = paragraph.querySelector("[data-speaker=true]");
+    let textElements = paragraph.querySelectorAll("span[data-speaker=false]");
+
+    if (speakerElement && textElements.length > 0) {
+      let speaker = speakerElement.textContent.trim();
+      let text = Array.from(textElements)
+        .map((span) => span.textContent.trim())
+        .join(" ");
+      transcriptData.push({ speaker, text });
+    }
+  });
+
+  return transcriptData;
+}
+
+// Function to handle the extraction and action
+async function handleTranscriptAction(action) {
   try {
-    // Query the active tab in the current window
     const [tab] = await chrome.tabs.query({
       active: true,
       currentWindow: true,
@@ -11,70 +36,75 @@ document.getElementById("scrape-transcript").addEventListener("click", async () 
       return;
     }
 
-    // Check if the tab URL is from the tl;dv domain
     if (!tab.url.includes("tldv.io")) {
       alert("This extension works only on tl;dv");
       return;
     }
 
-    // Execute the script in the context of the active tab
-    chrome.scripting.executeScript({
+    // Execute script
+    const injectionResults = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: () => {
-        // Select the transcript container element by its ID
-        (function () {
-          let transcriptContainer = document.querySelector("#transcript-container");
-          if (!transcriptContainer) {
-            console.log("Transcript container not found!");
-            alert("No transcript data found");
-            return;
-          }
-
-          let transcriptData = [];
-
-          // Iterate over each paragraph in the transcript container
-          transcriptContainer.querySelectorAll("p").forEach((paragraph) => {
-            // Find the speaker element and text elements within the paragraph
-            let speakerElement = paragraph.querySelector("[data-speaker=true]");
-            let textElements = paragraph.querySelectorAll("span[data-speaker=false]");
-
-            // If both speaker and text elements are found, process them
-            if (speakerElement && textElements.length > 0) {
-              let speaker = speakerElement.textContent.trim();
-              let text = Array.from(textElements)
-                .map((span) => span.textContent.trim())
-                .join(" ");
-              // Add the speaker and text to the transcript data
-              transcriptData.push(`${speaker}: ${text}`);
-            }
-          });
-
-          if (transcriptData.length > 0) {
-            console.log("Extracted Transcript:\n\n" + transcriptData.join("\n"));
-            copyToClipboard(transcriptData.join("\n"));
-            alert("Transcript copied to clipboard!");
-          } else {
-            console.log("No transcript data found.");
-            alert("No transcript data found");
-          }
-
-          function copyToClipboard(text) {
-            let textarea = document.createElement("textarea");
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-          }
-        })();
-      },
+      func: scrapeTranscriptFromPage,
     });
-  } catch (error) {
-    console.error("Failed to copy transcript:", error);
-    if (error.message.includes("permissions")) {
-      alert("Required permission not granted");
-    } else {
-      alert("Clipboard access denied. Please allow clipboard permissions.");
+
+    const result = injectionResults[0].result;
+
+    if (!result || result.length === 0) {
+      alert("No transcript data found");
+      return;
     }
+
+    processTranscript(result, action);
+
+  } catch (error) {
+    console.error("Error:", error);
+    alert("An error occurred: " + error.message);
   }
-});
+}
+
+function processTranscript(data, action) {
+  let content = "";
+  
+  if (action === "copy" || action === "txt") {
+    content = data.map(item => `${item.speaker}: ${item.text}`).join("\n");
+  } else if (action === "md") {
+    content = data.map(item => `**${item.speaker}**: ${item.text}`).join("\n\n");
+  }
+
+  if (action === "copy") {
+    navigator.clipboard.writeText(content).then(() => {
+      alert("Transcript copied to clipboard!");
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+      // Fallback for clipboard issues if any
+      const textarea = document.createElement("textarea");
+      textarea.value = content;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("Transcript copied to clipboard!");
+    });
+  } else if (action === "txt" || action === "md") {
+    const filename = `transcript.${action}`;
+    const mimeType = action === 'md' ? 'text/markdown' : 'text/plain';
+    downloadFile(content, filename, mimeType);
+  }
+}
+
+function downloadFile(content, filename, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Event Listeners
+document.getElementById("scrape-transcript").addEventListener("click", () => handleTranscriptAction("copy"));
+document.getElementById("download-txt").addEventListener("click", () => handleTranscriptAction("txt"));
+document.getElementById("download-md").addEventListener("click", () => handleTranscriptAction("md"));
