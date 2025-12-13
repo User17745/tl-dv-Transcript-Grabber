@@ -70,7 +70,14 @@ async function handleTranscriptAction(action) {
       return;
     }
 
-    processTranscript(result, action);
+    // Extract Meeting ID
+    let meetingId = "unknown";
+    const meetingIdMatch = tab.url.match(/\/meetings\/([a-zA-Z0-9]+)/);
+    if (meetingIdMatch && meetingIdMatch[1]) {
+      meetingId = meetingIdMatch[1];
+    }
+
+    processTranscript(result, action, meetingId);
 
   } catch (error) {
     console.error("Error:", error);
@@ -78,7 +85,7 @@ async function handleTranscriptAction(action) {
   }
 }
 
-function processTranscript(data, action) {
+function processTranscript(data, action, meetingId) {
   let content = "";
 
   // Content Collection
@@ -92,6 +99,14 @@ function processTranscript(data, action) {
       const timePart = item.timestamp ? `**${item.timestamp}** ` : "";
       return `${timePart}*${item.speaker}* :: ${item.text}`;
     }).join("\n\n");
+  } else if (action === "csv") {
+    // CSV Header
+    content = "Timestamp,Speaker,Transcript\n";
+    content += data.map(item => {
+      // Escape quotes by doubling them, and wrap fields in quotes
+      const escape = (text) => `"${(text || "").replace(/"/g, '""')}"`;
+      return `${escape(item.timestamp)},${escape(item.speaker)},${escape(item.text)}`;
+    }).join("\n");
   }
 
   if (action === "copy") {
@@ -108,9 +123,11 @@ function processTranscript(data, action) {
       document.body.removeChild(textarea);
       alert("Transcript copied to clipboard!");
     });
-  } else if (action === "txt" || action === "md") {
-    const filename = `transcript.${action}`;
-    const mimeType = action === 'md' ? 'text/markdown' : 'text/plain';
+  } else if (action === "txt" || action === "md" || action === "csv") {
+    const filename = `tldv_${meetingId}_meeting_transcript.${action}`;
+    let mimeType = 'text/plain';
+    if (action === 'md') mimeType = 'text/markdown';
+    if (action === 'csv') mimeType = 'text/csv';
     downloadFile(content, filename, mimeType);
   }
 }
@@ -131,3 +148,4 @@ function downloadFile(content, filename, mimeType) {
 document.getElementById("scrape-transcript").addEventListener("click", () => handleTranscriptAction("copy"));
 document.getElementById("download-txt").addEventListener("click", () => handleTranscriptAction("txt"));
 document.getElementById("download-md").addEventListener("click", () => handleTranscriptAction("md"));
+document.getElementById("download-csv").addEventListener("click", () => handleTranscriptAction("csv"));

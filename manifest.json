@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "tl;dv Transcript Grabber",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Extract and copy transcripts from tl;dv meeting recordings.",
   "action": {
     "default_popup": "popup.html",
@@ -14,5 +14,9 @@
   "host_permissions": [
     "*://*.tldv.io/*"
   ],
-  "permissions": ["scripting", "activeTab", "clipboardWrite"]
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "clipboardWrite"
+  ]
 }
