@@ -9,6 +9,11 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 - Provides options to either **Copy** to clipboard or **Download** as a file for each format.
 
 ## Installation
+
+### Option 1: Chrome Web Store (Recommended)
+[**Install from Chrome Web Store**](https://chromewebstore.google.com/detail/tldv-transcript-grabber/imdeigjlcophdhdfhebkgaliacabkhmc)
+
+### Option 2: Manual Installation
 1. Clone or download this repository to your local machine.
 2. Go to `chrome://extensions/` in your browser.
 3. Enable **Developer Mode** in the top right corner.
