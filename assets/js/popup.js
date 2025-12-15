@@ -110,7 +110,7 @@ function processTranscript(data, format, mode, meetingId) {
   }
 
   if (mode === "copy") {
-    navigator.clipboard.writeText(content).then(() => {
+    return navigator.clipboard.writeText(content).then(() => {
       alert(`${format.toUpperCase()} copied to clipboard!`);
     }).catch(err => {
       console.error('Could not copy text: ', err);
@@ -145,11 +145,26 @@ function downloadFile(content, filename, mimeType) {
 }
 
 // Event Listeners
-document.getElementById("copy-txt").addEventListener("click", () => handleTranscriptAction("txt", "copy"));
-document.getElementById("download-txt").addEventListener("click", () => handleTranscriptAction("txt", "download"));
+if (typeof document !== 'undefined') {
+  const attachListener = (id, event, handler) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(event, handler);
+  };
 
-document.getElementById("copy-md").addEventListener("click", () => handleTranscriptAction("md", "copy"));
-document.getElementById("download-md").addEventListener("click", () => handleTranscriptAction("md", "download"));
+  attachListener("copy-txt", "click", () => handleTranscriptAction("txt", "copy"));
+  attachListener("download-txt", "click", () => handleTranscriptAction("txt", "download"));
 
-document.getElementById("copy-csv").addEventListener("click", () => handleTranscriptAction("csv", "copy"));
-document.getElementById("download-csv").addEventListener("click", () => handleTranscriptAction("csv", "download"));
+  attachListener("copy-md", "click", () => handleTranscriptAction("md", "copy"));
+  attachListener("download-md", "click", () => handleTranscriptAction("md", "download"));
+
+  attachListener("copy-csv", "click", () => handleTranscriptAction("csv", "copy"));
+  attachListener("download-csv", "click", () => handleTranscriptAction("csv", "download"));
+}
+
+// Export for Node.js testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    scrapeTranscriptFromPage,
+    processTranscript
+  };
+}
