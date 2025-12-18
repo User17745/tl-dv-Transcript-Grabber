@@ -11,9 +11,20 @@
       "128": "assets/icons/icon128.png"
     }
   },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
   "background": {
     "service_worker": "assets/js/background.js"
   },
-  "host_permissions": ["*://*.tldv.io/*"],
-  "permissions": ["scripting", "activeTab", "clipboardWrite"]
+  "host_permissions": [
+    "*://*.tldv.io/*"
+  ],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "clipboardWrite"
+  ]
 }
