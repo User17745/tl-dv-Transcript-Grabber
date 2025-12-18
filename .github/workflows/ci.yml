@@ -26,10 +26,7 @@ jobs:
         run: npm run lint
 
       - name: Run unit tests
-        run: npm test
+        run: npm run test:unit
 
-    # E2E tests are skipped in standard CI because they require headful Chrome.
-    # To run them, one would typically use xvfb or a dedicated browser action.
-    # For now, we prioritize unit tests and linting in CI.
-    # - name: Run E2E tests
-    #   run: xvfb-run --auto-servernum npm run test:e2e
+      - name: Run E2E tests
+        run: xvfb-run --auto-servernum npm run test:e2e

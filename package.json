@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:unit": "jest tests/unit.test.js",
     "test:e2e": "jest tests/e2e.test.js",
     "lint": "eslint .",
     "format": "prettier --write ."
