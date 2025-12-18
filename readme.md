@@ -16,13 +16,23 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 
 [**Install from Chrome Web Store**](https://chromewebstore.google.com/detail/tldv-transcript-grabber/imdeigjlcophdhdfhebkgaliacabkhmc)
 
-### Option 2: Manual Installation
+### Option 2: Get the latest release from GitHub
+
+[**Get the latest release from GitHub**](https://github.com/User17745/tl-dv-Transcript-Grabber/releases/latest)
+
+1. Download the latest release ZIP and extract it.
+2. Go to `chrome://extensions/` in your browser.
+3. Enable **Developer Mode** in the top right corner.
+4. Click on **Load unpacked** and select the extracted folder.
+5. The Transcript Grabber extension will now appear in your Chrome toolbar.
+
+### Option 3: Via Source Code
 
 1. Clone or download this repository to your local machine.
 2. Go to `chrome://extensions/` in your browser.
 3. Enable **Developer Mode** in the top right corner.
 4. Click on **Load unpacked** and select the folder where you saved this project.
-5. The Transcript Scraper extension will now appear in your Chrome toolbar.
+5. The Transcript Grabber extension will now appear in your Chrome toolbar.
 
 ## Usage
 
