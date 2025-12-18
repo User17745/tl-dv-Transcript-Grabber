@@ -77,8 +77,8 @@ describe('E2E Interaction Test', () => {
     await popupPage.bringToFront();
 
     // Check if popup loaded
-    const title = await popupPage.$eval('h3', (el) => el.textContent);
-    expect(title).toBe('tl;dv Transcript Grabber');
+    const title = await popupPage.$eval('h1', (el) => el.textContent);
+    expect(title).toBe('Transcript Grabber');
 
     // Check if buttons are present
     const copyBtn = await popupPage.$('#copy-txt');
