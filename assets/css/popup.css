@@ -42,18 +42,20 @@ body {
 h3 {
   margin: 0 0 20px 0;
   font-size: 1.5em;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1em;
-  transition: background-color 0.3s, transform 0.1s;
+  transition:
+    background-color 0.3s,
+    transform 0.1s;
 }
 
 button:hover {
@@ -88,7 +90,7 @@ button:active {
 .footer-section-header {
   font-weight: bold;
   margin-bottom: 8px;
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 .footer-links {
@@ -101,5 +103,5 @@ button:active {
 }
 
 .footer-links a:hover {
-  color: #4CAF50;
+  color: #4caf50;
 }
