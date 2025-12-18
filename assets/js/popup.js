@@ -1,4 +1,11 @@
-// Function to scrape transcript from the page
+/**
+ * Extracts transcript entries from the page DOM under the #transcript-container element.
+ *
+ * @returns {Array<{timestamp: string, speaker: string, text: string}> | null} An array of transcript items or `null` if the transcript container is not found. Each item contains:
+ *  - `timestamp`: the timestamp text from the speaker anchor (empty string if absent),
+ *  - `speaker`: the cleaned speaker name (colons and surrounding whitespace removed),
+ *  - `text`: the joined transcript text for that paragraph.
+ */
 function scrapeTranscriptFromPage() {
   const transcriptContainer = document.querySelector('#transcript-container');
   if (!transcriptContainer) {
@@ -41,7 +48,16 @@ function scrapeTranscriptFromPage() {
   return transcriptData;
 }
 
-// Function to handle the extraction and action
+/**
+ * Orchestrates extracting a transcript from the active tl;dv tab and triggers formatting and output.
+ *
+ * Executes the in-page scraper on the currently active tab, validates the result, derives a meeting ID
+ * from the URL, and passes the transcript data to the formatting/handling routine which either copies
+ * the formatted content to the clipboard or starts a file download.
+ *
+ * @param {('txt'|'md'|'csv')} format - Output format to produce: "txt", "md", or "csv".
+ * @param {('copy'|'download')} mode - Action to perform with the formatted output: "copy" to clipboard or "download" as a file.
+ */
 async function handleTranscriptAction(format, mode) {
   try {
     const [tab] = await chrome.tabs.query({
@@ -86,6 +102,15 @@ async function handleTranscriptAction(format, mode) {
   }
 }
 
+/**
+ * Format transcript items into TXT, Markdown, or CSV and either copy the result to the clipboard or download it as a file.
+ *
+ * @param {Array<{timestamp?: string, speaker: string, text: string}>} data - Array of transcript entries; each entry may include a `timestamp`, and must include `speaker` and `text`.
+ * @param {'txt'|'md'|'csv'} format - Desired output format: 'txt' produces plain lines, 'md' produces Markdown with bold timestamps and italic speakers, 'csv' produces a CSV with header "Timestamp,Speaker,Transcript".
+ * @param {'copy'|'download'} mode - Action to perform: 'copy' writes the formatted content to the clipboard, 'download' triggers a file download named using `meetingId`.
+ * @param {string} meetingId - Identifier appended to the generated download filename when mode is 'download'.
+ * @returns {Promise<void>|undefined} The Promise returned by the clipboard write operation when `mode` is 'copy'; otherwise `undefined`.
+ */
 function processTranscript(data, format, mode, meetingId) {
   let content = '';
 
@@ -142,6 +167,13 @@ function processTranscript(data, format, mode, meetingId) {
   }
 }
 
+/**
+ * Initiates a browser download of the given content by creating a temporary Blob URL and programmatically clicking a hidden link.
+ *
+ * @param {string|Blob|ArrayBuffer|Uint8Array} content - The data to save; may be a string, Blob, or binary data (any valid BlobPart).
+ * @param {string} filename - The filename to present to the user for the downloaded file.
+ * @param {string} mimeType - The MIME type to assign to the created Blob (e.g., "text/plain", "text/csv").
+ */
 function downloadFile(content, filename, mimeType) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
