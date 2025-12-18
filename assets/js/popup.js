@@ -142,30 +142,42 @@ function processTranscript(data, format, mode, meetingId) {
   }
 
   if (mode === 'copy') {
-    return navigator.clipboard
-      .writeText(content)
-      .then(() => {
-        alert(`${format.toUpperCase()} copied to clipboard!`);
-      })
-      .catch((err) => {
-        console.error('Could not copy text: ', err);
-        // Fallback for clipboard issues if any
-        const textarea = document.createElement('textarea');
-        textarea.value = content;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        alert(`${format.toUpperCase()} copied to clipboard!`);
-      });
-  } else if (mode === 'download') {
+    return navigator.clipboard.writeText(content).then(() => {
+      showStatus(`${format.toUpperCase()} copied to clipboard!`);
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+      // Fallback for clipboard issues if any
+      const textarea = document.createElement("textarea");
+      textarea.value = content;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      showStatus(`${format.toUpperCase()} copied to clipboard!`);
+    });
+  } else if (mode === "download") {
     const filename = `tldv_${meetingId}_meeting_transcript.${format}`;
     let mimeType = 'text/plain';
     if (format === 'md') mimeType = 'text/markdown';
     if (format === 'csv') mimeType = 'text/csv';
     downloadFile(content, filename, mimeType);
+    showStatus(`${format.toUpperCase()} downloading...`);
   }
 }
+
+function showStatus(msg) {
+  const statusEl = document.getElementById("status");
+  if (statusEl) {
+    statusEl.textContent = msg;
+    // CSS handle the rest via :not(:empty)
+    setTimeout(() => {
+      statusEl.textContent = "";
+    }, 4000);
+  } else {
+    alert(msg);
+  }
+}
+
 
 /**
  * Initiates a browser download of the given content by creating a temporary Blob URL and programmatically clicking a hidden link.
@@ -213,6 +225,11 @@ if (typeof document !== 'undefined') {
   attachListener('download-csv', 'click', () =>
     handleTranscriptAction('csv', 'download')
   );
+
+  attachListener('info-toggle', 'click', () => {
+    const panel = document.getElementById('info-panel');
+    if (panel) panel.classList.toggle('collapsed');
+  });
 }
 
 // Export for Node.js testing
