@@ -1,107 +1,243 @@
+:root {
+  /* Material 3 Color Tokens - Phase 2 (Blue) */
+  --md-sys-color-primary: #02b5f4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d0e4ff;
+  --md-sys-color-on-primary-container: #001d33;
+
+  --md-sys-color-surface: #fdfcff;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-surface-container: #f0f4f9;
+
+  --md-sys-color-outline: #72777f;
+  --md-sys-color-outline-variant: #c2c7cf;
+
+  /* Elevation */
+  --md-sys-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  /* Shape */
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-full: 100px;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  width: 340px;
+  overflow: hidden;
+}
+
+.container {
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  height: auto;
-  width: 300px;
+  gap: 12px;
 }
 
-.button-container {
+.header {
+  margin-bottom: 4px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--md-sys-color-primary);
+}
+
+.info-btn {
+  padding: 8px !important;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 0.8125rem;
+  color: var(--md-sys-color-outline);
+}
+
+/* Info Panel */
+.info-panel {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--md-sys-shape-corner-medium);
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, margin 0.3s ease, opacity 0.2s ease;
+  max-height: 500px;
+  padding: 12px;
+  margin-bottom: 4px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 100%;
+  gap: 12px;
+  border: 1px solid var(--md-sys-color-outline-variant);
 }
 
-.format-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-}
-
-.format-label {
-  width: 35px;
-  font-weight: bold;
-  font-size: 0.9em;
-}
-
-.action-btn {
-  flex: 1;
-  padding: 8px 5px;
-  font-size: 0.9em;
-}
-
-h3 {
-  margin: 0 0 20px 0;
-  font-size: 1.5em;
-  color: #4caf50;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
+.info-panel.collapsed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
   border: none;
-  border-radius: 5px;
+  opacity: 0;
+}
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--md-sys-color-outline);
+}
+
+.panel-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panel-links a {
+  text-decoration: none;
+  font-size: 0.75rem;
+  color: var(--md-sys-color-primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.panel-links a:hover {
+  color: #0077a3;
+  text-decoration: underline;
+}
+
+.link-icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.format-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.format-card {
+  background-color: var(--md-sys-color-surface-container);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s ease;
+}
+
+.format-badge {
+  font-weight: 700;
+  font-size: 0.6875rem;
+  padding: 4px 10px;
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+.actions {
+  display: flex;
+  gap: 4px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
   cursor: pointer;
-  font-size: 1em;
-  transition:
-    background-color 0.3s,
-    transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--md-sys-shape-corner-full);
+  color: var(--md-sys-color-on-surface);
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
 }
 
-button:hover {
-  background-color: #45a049;
+.icon-btn:hover {
+  background-color: rgba(2, 181, 244, 0.08);
+  color: var(--md-sys-color-primary);
 }
 
-button:active {
+.icon-btn:active {
   transform: scale(0.95);
 }
 
-#status {
-  margin-top: 10px;
-  color: red;
-  font-size: 0.9em;
+.icon-btn .icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }
 
-/* Footer Styles */
-.footer {
+.status-msg {
+  max-height: 0;
+  opacity: 0;
+  font-size: 0.75rem;
   text-align: center;
-  font-size: 0.8em;
-  color: #666;
-  width: 100%;
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+  overflow: hidden;
 }
 
-.divider {
-  height: 1px;
-  background-color: #eee;
-  margin: 10px 0;
-  width: 100%;
+.status-msg:not(:empty) {
+  max-height: 40px;
+  opacity: 1;
+  margin-top: 4px;
 }
 
-.footer-section-header {
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #4caf50;
+.footer {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  justify-content: center;
 }
 
 .footer-links {
-  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
 }
 
 .footer-links a {
-  color: #666;
-  transition: color 0.2s;
+  text-decoration: none;
+  color: var(--md-sys-color-outline);
+  transition: color 0.2s ease;
 }
 
-.footer-links a:hover {
-  color: #4caf50;
+.footer-links a:hover,
+.rate-link:hover {
+  color: var(--md-sys-color-primary);
+}
+
+.rate-link {
+  font-weight: 600;
+  color: var(--md-sys-color-primary) !important;
+}
+
+.dot {
+  color: var(--md-sys-color-outline-variant);
 }

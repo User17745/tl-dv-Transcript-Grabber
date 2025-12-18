@@ -1,81 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>tl;dv Transcript Grabber</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/popup.css" />
-  </head>
 
-  <body>
-    <h3>tl;dv Transcript Grabber</h3>
-    <div class="button-container">
-      <div class="format-row">
-        <span class="format-label">TXT</span>
-        <button id="copy-txt" class="action-btn">Copy</button>
-        <button id="download-txt" class="action-btn">Download</button>
+<head>
+  <title>tl;dv Transcript Grabber</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/popup.css">
+</head>
+
+<body>
+  <main class="container">
+    <header class="header">
+      <div class="header-top">
+        <h1 class="title">Transcript Grabber</h1>
+        <button id="info-toggle" class="icon-btn info-btn" title="Information">
+          <svg viewBox="0 0 24 24" class="icon">
+            <path
+              d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z" />
+          </svg>
+        </button>
       </div>
-      <div class="format-row">
-        <span class="format-label">MD</span>
-        <button id="copy-md" class="action-btn">Copy</button>
-        <button id="download-md" class="action-btn">Download</button>
+      <p class="subtitle">Extract transcripts from tl;dv meetings</p>
+    </header>
+
+    <div id="info-panel" class="info-panel collapsed">
+      <div class="panel-section">
+        <p class="section-title">Open Source</p>
+        <div class="panel-links">
+          <a href="https://github.com/User17745/tl-dv-Transcript-Grabber" target="_blank">
+            <svg viewBox="0 0 24 24" class="link-icon">
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+            GitHub
+          </a>
+          <a href="https://github.com/User17745/tl-dv-Transcript-Grabber/discussions" target="_blank">Request
+            Feature</a>
+          <a href="https://github.com/User17745/tl-dv-Transcript-Grabber/issues" target="_blank">Report Bug</a>
+        </div>
       </div>
-      <div class="format-row">
-        <span class="format-label">CSV</span>
-        <button id="copy-csv" class="action-btn">Copy</button>
-        <button id="download-csv" class="action-btn">Download</button>
+      <div class="panel-section">
+        <p class="section-title">Reach Out</p>
+        <div class="panel-links">
+          <a href="https://x.com/InuMeo" target="_blank">X / Twitter</a>
+          <a href="https://www.linkedin.com/in/abhishek-aggarwal-8bb82b100/" target="_blank">LinkedIn</a>
+        </div>
       </div>
     </div>
-    <p id="status"></p>
+
+    <section class="format-list">
+
+      <!-- TXT Row -->
+      <div class="format-card">
+        <span class="format-badge">TXT</span>
+        <div class="actions">
+          <button id="copy-txt" class="icon-btn" title="Copy TXT">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path
+                d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+            </svg>
+            <span>Copy</span>
+          </button>
+          <button id="download-txt" class="icon-btn" title="Download TXT">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M5 20h14v-2H5v2zm14-9h-4V3H9v8H5l7 7 7-7z" />
+            </svg>
+            <span>Download</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MD Row -->
+      <div class="format-card">
+        <span class="format-badge">MD</span>
+        <div class="actions">
+          <button id="copy-md" class="icon-btn" title="Copy MD">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path
+                d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+            </svg>
+            <span>Copy</span>
+          </button>
+          <button id="download-md" class="icon-btn" title="Download MD">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M5 20h14v-2H5v2zm14-9h-4V3H9v8H5l7 7 7-7z" />
+            </svg>
+            <span>Download</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CSV Row -->
+      <div class="format-card">
+        <span class="format-badge">CSV</span>
+        <div class="actions">
+          <button id="copy-csv" class="icon-btn" title="Copy CSV">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path
+                d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+            </svg>
+            <span>Copy</span>
+          </button>
+          <button id="download-csv" class="icon-btn" title="Download CSV">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M5 20h14v-2H5v2zm14-9h-4V3H9v8H5l7 7 7-7z" />
+            </svg>
+            <span>Download</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div id="status" class="status-msg"></div>
 
     <footer class="footer">
-      <div class="divider"></div>
-      <p class="footer-section-header">This is an Open Source Project</p>
-
       <div class="footer-links">
-        <a
-          href="https://github.com/User17745/tl-dv-Transcript-Grabber"
-          target="_blank"
-          >GitHub</a
-        >
-        |
-        <a
-          href="https://github.com/User17745/tl-dv-Transcript-Grabber/discussions"
-          target="_blank"
-          >Request Feature</a
-        >
-        |
-        <a
-          href="https://github.com/User17745/tl-dv-Transcript-Grabber/issues"
-          target="_blank"
-          >Report Bug</a
-        >
-      </div>
-
-      <div class="footer-links">
-        <p class="footer-section-header">Reach out</p>
-        <a href="https://x.com/InuMeo" target="_blank">X / Twitter</a> |
-        <a
-          href="https://www.linkedin.com/in/abhishek-aggarwal-8bb82b100/"
-          target="_blank"
-          >LinkedIn</a
-        >
-      </div>
-
-      <div class="footer-links">
-        <p class="footer-section-header">More</p>
-        <a
-          href="https://chromewebstore.google.com/detail/tldv-transcript-grabber/imdeigjlcophdhdfhebkgaliacabkhmc"
-          target="_blank"
-          >Rate Extension</a
-        >
-        |
-        <a
-          href="https://user17745.github.io/tl-dv-Transcript-Grabber/privacy-policy"
-          target="_blank"
-          >Privacy Policy</a
-        >
+        <a href="https://chromewebstore.google.com/detail/tldv-transcript-grabber/imdeigjlcophdhdfhebkgaliacabkhmc"
+          target="_blank" class="rate-link">Rate Extension</a>
+        <span class="dot">&bull;</span>
+        <a href="https://user17745.github.io/tl-dv-Transcript-Grabber/privacy-policy" target="_blank">Privacy</a>
       </div>
     </footer>
 
-    <script src="assets/js/popup.js"></script>
-  </body>
+  </main>
+
+  <script src="assets/js/popup.js"></script>
+</body>
+
 </html>
