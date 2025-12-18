@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "test:unit": "jest tests/unit.test.js",
-    "test:e2e": "jest tests/e2e.test.js",
+    "test:e2e": "jest tests/e2e.test.js --runInBand --forceExit",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

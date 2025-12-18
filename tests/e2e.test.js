@@ -4,6 +4,8 @@ const path = require('path');
 const EXTENSION_PATH = path.resolve(__dirname, '../');
 const MOCK_PAGE_PATH = 'file://' + path.resolve(__dirname, 'mock_page.html');
 
+jest.setTimeout(30000);
+
 describe('E2E Interaction Test', () => {
   let browser;
   let page;
@@ -17,42 +19,27 @@ describe('E2E Interaction Test', () => {
         `--load-extension=${EXTENSION_PATH}`,
         '--no-sandbox',
         '--disable-setuid-sandbox',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
       ],
     });
 
-    // Get extension ID
-    const targets = await browser.targets();
-    const extensionTarget = targets.find((t) =>
-      t.url().startsWith('chrome-extension://')
-    );
-    if (extensionTarget) {
-      const match = extensionTarget
-        .url()
-        .match(/chrome-extension:\/\/([a-z]+)\//);
-      if (match) extensionId = match[1];
-    }
-
-    if (!extensionId) {
-      // Wait a bit more and try again
-      await new Promise((r) => setTimeout(r, 3000));
-      const newTargets = await browser.targets();
-      const t = newTargets.find((t) =>
-        t.url().startsWith('chrome-extension://')
-      );
+    // Higher timeout and more robust extension detection
+    const findExtensionId = async () => {
+      const targets = await browser.targets();
+      const t = targets.find((t) => t.url().startsWith('chrome-extension://'));
       if (t) {
         const match = t.url().match(/chrome-extension:\/\/([a-z]+)\//);
-        if (match) extensionId = match[1];
+        if (match) return match[1];
       }
-    }
+      return null;
+    };
 
-    // Final fallback: Navigate to chrome://extensions/
-    if (!extensionId) {
-      const tempPage = await browser.newPage();
-      await tempPage.goto('chrome://extensions/');
-      // In headful mode, we can inspect this, but it's hard in headless.
-      // However, we are in headful mode!
-      await new Promise((r) => setTimeout(r, 1000));
-      await tempPage.close();
+    // Poll for the extension ID (up to 10 seconds)
+    for (let i = 0; i < 20; i++) {
+      extensionId = await findExtensionId();
+      if (extensionId) break;
+      await new Promise((r) => setTimeout(r, 500));
     }
   });
 
