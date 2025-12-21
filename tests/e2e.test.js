@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 
-const EXTENSION_PATH = path.resolve(__dirname, '../');
+const EXTENSION_PATH = path.resolve(__dirname, '../src');
 const MOCK_PAGE_PATH = 'file://' + path.resolve(__dirname, 'mock_page.html');
 
 jest.setTimeout(30000);

@@ -3,7 +3,7 @@ const { chrome } = require('jest-chrome');
 const {
   processTranscript,
   scrapeTranscriptFromPage,
-} = require('../assets/js/popup.js');
+} = require('../src/assets/js/popup.js');
 
 describe('Summary Generator Unit Tests', () => {
   // Mock Browser APIs

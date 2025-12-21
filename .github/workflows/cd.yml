@@ -26,7 +26,7 @@ jobs:
       - name: Get version from manifest
         id: get_version
         run: |
-          VERSION=$(jq -r .version manifest.json)
+          VERSION=$(jq -r .version src/manifest.json)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
