@@ -12,7 +12,7 @@
     "test:e2e": "jest tests/e2e.test.js --runInBand --forceExit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "package": "zip -r tl-dv-transcript-grabber.zip . -x \"node_modules/*\" \"tests/*\" \".git/*\" \".github/*\" \".prettierrc\" \"eslint.config.js\" \"package*\" \"readme.md\" \"LICENSE\" \"privacy-policy.md\" \".DS_Store\" \".gitignore\""
+    "package": "cd src && zip -r ../tl-dv-transcript-grabber.zip . -x \"*.DS_Store\""
   },
   "repository": {
     "type": "git",

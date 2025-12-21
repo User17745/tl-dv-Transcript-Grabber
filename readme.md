@@ -31,7 +31,7 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 1. Clone or download this repository to your local machine.
 2. Go to `chrome://extensions/` in your browser.
 3. Enable **Developer Mode** in the top right corner.
-4. Click on **Load unpacked** and select the folder where you saved this project.
+4. Click on **Load unpacked** and select the `src/` folder from the project.
 5. The Transcript Grabber extension will now appear in your Chrome toolbar.
 
 ## Usage
@@ -45,17 +45,24 @@ A simple Chrome extension designed to extract and copy transcripts from online m
 
 ```
 tl-dv-Transcript-Grabber/
-├── assets/
-├──── css/
-├────── popup.css       // Popup Styling
-├──── icons/
-├────── icon16.png
-├────── icon48.png
-├────── icon128.png
-├──── js/
-├────── popup.js        // Main logic for extracting transcript
-├── manifest.json       // Chrome extension configuration
-├── popup.html          // Popup UI
+├── src/                    # Extension source code (gets packaged)
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── popup.css       // Popup Styling
+│   │   ├── icons/
+│   │   │   ├── icon16.png
+│   │   │   ├── icon48.png
+│   │   │   └── icon128.png
+│   │   └── js/
+│   │       ├── popup.js        // Main logic for extracting transcript
+│   │       └── background.js   // Background service worker
+│   ├── manifest.json           // Chrome extension configuration
+│   ├── popup.html              // Popup UI
+│   └── privacy-policy.md       // Privacy policy
+├── tests/                  # Test files (development only)
+├── .github/                # CI/CD workflows (development only)
+├── package.json            # Build configuration (development only)
+└── readme.md               // Documentation
 ```
 
 ## Technologies Used
